@@ -1,0 +1,23 @@
+<!-- <h1>Contador</h1> -->
+
+<!-- <p>{{valorContador}}</p>
+<button (click) = "incrementar()">Incrementar</button>
+<button (click) = "decrementar()">Decrementar</button> -->
+
+<!-- <app-hijo [recibeHijo]="mensajePadre"></app-hijo> -->
+
+<!-- <app-hijo 
+(incrementarHijo) = "incrementar()"
+(decrementarHijo) = "decrementar()"
+(enviarMensaje)="recibirMensaje($event)"
+
+/>
+<p>{{valorContador}}</p>
+<p>El mensaje recibido desde el hijo es {{reciboMenaHijo}}</p> -->
+
+<h1 appEstiloHermanos >{{ hermanoGrande | nuevoPipe }}</h1>
+<button (click)="saludar()">Saludar</button>
+<button (click)="preguntar()">Preguntar Por Hijo</button>
+
+<h2> Fecha de hoy: {{ fecha | date: 'short' }}</h2>
+

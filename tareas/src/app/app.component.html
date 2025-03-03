@@ -1,0 +1,10 @@
+<div>
+  <h2>Lista de Tareas</h2>
+  <ul>
+    <li *ngFor="let tareas of listasTareas; let i = index">{{ tareas }}
+    <button (click)="eliminarTarea(i)"> Eliminar </button>
+  </li>
+  <input type="text" placeholder="Nueva Tarea" [(ngModel)]="nuevaTarea">
+  <button (click)="agregarTarea()" class="agregar"> Agregar Tarea</button>
+  </ul>
+</div>
