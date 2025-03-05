@@ -13,6 +13,9 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { RouterModule } from '@angular/router';
 import { ChatComponent } from './main/chat/chat.component';
 import { ChatServiceService } from './service/chat-service.service';
+import { connectFirestoreEmulator } from 'firebase/firestore';
+import { environment } from '../environments/environment';
+
 
 
 @NgModule({
@@ -30,18 +33,25 @@ import { ChatServiceService } from './service/chat-service.service';
     FormsModule,
     ReactiveFormsModule,
     FormsModule,
+    
   ],
   providers: [
-    provideFirebaseApp(() => initializeApp({ 
-      projectId: "login-2f435", 
-      appId: "1:869898521111:web:c490e53ebd4573b4c76a52", 
-      storageBucket: "login-2f435.firebasestorage.app", 
-      apiKey: "AIzaSyDPmpyKVTrQx9z4ZETeG-NjDZbtQ4Zqkgs", 
-      authDomain: "login-2f435.firebaseapp.com", 
-      messagingSenderId: "869898521111" 
-    })),
-    provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth()) // 👈 Agregar esta línea
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      if (environment.firebase.emulator) {
+        connectFirestoreEmulator(firestore, 'localhost', 8080);
+        console.log("🔥 Firestore Emulator conectado en localhost:8080");
+      }
+      return firestore;
+    }),
+    provideAuth(() => {
+      const auth = getAuth();
+      if (environment.firebase.emulator) {
+        console.log("🔑 Autenticación habilitada con Firebase Emulator");
+      }
+      return auth;
+   })
   ],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ import { Form, FormBuilder, FormGroup, Validators, FormControl } from '@angular/
 
 import { Router } from '@angular/router';
 import { UserService } from '../service/user.service';
+import { FirebaseApp } from '@angular/fire/app';
 
 
 @Component({

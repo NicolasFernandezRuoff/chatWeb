@@ -8,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'chat-app';
+
+  ngOnInit() {
+    console.log("✅ Aplicación Angular iniciada correctamente");
+ }
+ 
 }

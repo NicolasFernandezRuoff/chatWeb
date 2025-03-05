@@ -1,10 +1,22 @@
-<nav class="navbar bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        Chat App
-      </a>
-      <div>
-        <button class="Btn" (click)="logout()">
+      <a class="navbar-brand" href="#">chatApp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" (click)="toggleFriendsPanelFriends()">Amigos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" (click)="toggleFriendsPanelRequest()" >Solicitudes de Amigos</a>
+          </li>
+          </ul>
+        <form class="d-flex align-items-center" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar Amigos" aria-label="Search" [(ngModel)]="searchEmail" name="searchEmail">
+          <button class="btn btn-outline-success" type="submit" id = "btnAmigos"  (click)="sendFriendRequest()" >Enviar</button>
+          <button class="Btn" (click)="logout()">
             <div class="sign">
               <svg viewBox="0 0 512 512">
                 <path
@@ -15,8 +27,35 @@
           
             <div class="text">Logout</div>
           </button>
+        </form>
+      </div>
     </div>
-    </div>
+    
   </nav>
 
-<app-chat></app-chat>
+  
+  <div class="sidebar" [ngClass]="{'show': friendsPanelVisible}">
+    <h2>👥 Amigos</h2>
+    <ul>
+      <li *ngFor="let friend of friends">
+        {{ friend }}
+        <button (click)="removeFriend(friend)" class="remove-btn">❌ Eliminar</button>
+      </li>
+    </ul>
+  </div>
+  
+<div class="sidebar" [ngClass]="{'show': friendsrequest}" >
+      <h2>📩 Solicitudes de Amistad</h2>
+    <ul>
+        <li *ngFor="let request of friendRequests">
+            {{ request.fromName}}
+            <button (click)="acceptRequest(request.id)" class="accept-btn">✅ Aceptar</button>
+            <button (click)="rejectRequest(request.id)" class="reject-btn">❌ Rechazar</button>
+          </li>
+          
+    </ul>
+</div>
+  
+
+
+
