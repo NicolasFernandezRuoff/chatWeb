@@ -11,7 +11,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // 👈 IMPORTANTE
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { RouterModule } from '@angular/router';
-import { ChatComponent } from './main/chat/chat.component';
+import { ChatComponent } from './chat/chat.component';
 import { ChatServiceService } from './service/chat-service.service';
 import { connectFirestoreEmulator } from 'firebase/firestore';
 import { environment } from '../environments/environment';
@@ -40,8 +40,8 @@ import { environment } from '../environments/environment';
     provideFirestore(() => {
       const firestore = getFirestore();
       if (environment.firebase.emulator) {
-        connectFirestoreEmulator(firestore, 'localhost', 8080);
-        console.log("🔥 Firestore Emulator conectado en localhost:8080");
+        connectFirestoreEmulator(firestore, environment.firebase.firestoreHost, environment.firebase.firestorePort);
+        console.log(`🔥 Firestore Emulator conectado en ${environment.firebase.firestoreHost}:${environment.firebase.firestorePort}`);
       }
       return firestore;
     }),

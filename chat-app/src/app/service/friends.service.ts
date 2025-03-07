@@ -1,24 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, doc, getDoc, updateDoc, arrayUnion, arrayRemove, addDoc } from '@angular/fire/firestore';
-import { getDocs, query, where } from 'firebase/firestore';
+import { getDocs, getDocsFromCache, getDocsFromServer, query, where } from 'firebase/firestore';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FriendsService {
   constructor(private firestore: Firestore) {}
+
+  private amigoSeleccionadoSource = new BehaviorSubject<string | null>(null);
+  amigoSeleccionado$ = this.amigoSeleccionadoSource.asObservable();
   
-  // Enviar solicitud de amistad
-  async sendFriendRequest(from: string, to: string) {
-    try {
-      console.log(`📩 Enviando solicitud de: ${from} a ${to}`);
-      const friendRequestsRef = collection(this.firestore, 'friendRequests');
-      const request = await addDoc(friendRequestsRef, { from, to, status: 'pending' });
-      console.log('✅ Solicitud enviada con ID:', request.id);
-    } catch (error) {
-      console.error('❌ Error al enviar solicitud:', error);
-    }
+  seleccionarAmigo(uid: string) {
+    this.amigoSeleccionadoSource.next(uid);
   }
+ // Enviar solicitud de amistad
+ async sendFriendRequest(from: string, to: string) {
+  try {
+    console.log(`📩 Enviando solicitud de: ${from} a ${to}`);
+    const friendRequestsRef = collection(this.firestore, 'friendRequests');
+    const request = await addDoc(friendRequestsRef, { from, to, status: 'pending' });
+    console.log('✅ Solicitud enviada con ID:', request.id);
+  } catch (error) {
+    console.error('❌ Error al enviar solicitud:', error);
+  }
+}
   
 
   // Aceptar solicitud de amistad
@@ -54,6 +61,7 @@ export class FriendsService {
     }
   }
 
+
   // Eliminar un amigo
   async removeFriend(userId: string, friendId: string) {
     try {
@@ -87,7 +95,8 @@ export class FriendsService {
       console.error('Error al agregar amigo:', error);
     }
   }
-  // Obtener datos de un usuario por su ID
+
+// Obtener datos de un usuario por su ID
   async getUserDoc(userId: string) {
     try {
       const userRef = doc(this.firestore, 'users', userId);
@@ -105,33 +114,33 @@ export class FriendsService {
     return userDoc ? userDoc['friends'] || [] : [];
   }
 
-  // Obtener solicitudes de amistad pendientes
-  async getFriendRequests(userId: string): Promise<{ id: string, from: string, fromName: string }[]> {
-    try {
-      const friendRequestsRef = collection(this.firestore, 'friendRequests');
-      const q = query(friendRequestsRef, where('to', '==', userId), where('status', '==', 'pending'));
-      const querySnapshot = await getDocs(q);
+ // Obtener solicitudes de amistad pendientes
+ async getFriendRequests(userId: string): Promise<{ id: string, from: string, fromName: string }[]> {
+  try {
+    const friendRequestsRef = collection(this.firestore, 'friendRequests');
+    const q = query(friendRequestsRef, where('to', '==', userId), where('status', '==', 'pending'));
+    const querySnapshot = await getDocs(q);
 
-      const requests = [];
-      for (const docSnap of querySnapshot.docs) {
-        const { from } = docSnap.data();
-        const fromUser = await this.getUserDoc(from);
-        requests.push({
-          id: docSnap.id,
-          from,
-          fromName: fromUser ? fromUser['email'] : 'Usuario desconocido'
-        });
-      }
-
-      return requests;
-    } catch (error) {
-      console.error('Error al obtener solicitudes:', error);
-      return [];
+    const requests = [];
+    for (const docSnap of querySnapshot.docs) {
+      const { from } = docSnap.data();
+      const fromUser = await this.getUserDoc(from);
+      requests.push({
+        id: docSnap.id,
+        from,
+        fromName: fromUser ? fromUser['email'] : 'Usuario desconocido'
+      });
     }
-  }
 
-  // Obtener usuario por email
-  async getUserByEmail(email: string): Promise<{ uid: string } | null> {
+    return requests;
+  } catch (error) {
+    console.error('Error al obtener solicitudes:', error);
+    return [];
+  }
+}
+
+   // Obtener usuario por email
+   async getUserByEmail(email: string): Promise<{ uid: string } | null> {
     try {
       console.log('📌 Buscando usuario con email:', email);
       

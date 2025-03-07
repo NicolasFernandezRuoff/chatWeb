@@ -1,0 +1,76 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 84vh; /* Ajusta esto si es necesario */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: white;
+}
+
+.chat-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden; /* Evita que crezca más allá del contenedor */
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #f1f1f1;
+  max-height: calc(90vh - 60px); /* Resta espacio de la barra de mensajes */
+}
+
+/* Scroll personalizado */
+.messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: #e0e0e0;
+  border-radius: 10px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #bbbbbb, #666666);
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #999999, #444444);
+}
+
+/* Fija la barra de enviar mensajes */
+.send-message {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: white;
+  border-top: 1px solid #ccc;
+  width: 100%;
+}
+
+.send-message input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.send-message button {
+  padding: 10px;
+  background: #38916f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.send-message button:hover {
+  background: #2a7c5d;
+}

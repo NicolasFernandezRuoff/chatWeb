@@ -9,9 +9,9 @@
       </div>
     
       <div class="send-message">
-        <input [(ngModel)]="newMessage" placeholder="Escribe tu mensaje...">
+        <input class = "imputMsj" [(ngModel)]="newMessage" placeholder="Escribe tu mensaje..." (keyup.enter)="sendMessage()">
         <button (click)="sendMessage()">Enviar</button>
-      </div>
+      </div>      
     </div>
   </div>
   

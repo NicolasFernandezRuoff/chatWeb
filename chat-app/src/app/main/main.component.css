@@ -1,125 +1,382 @@
-/* From Uiverse.io by MUJTABA201566 */ 
+/* Estilos generales */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
 
-#btnAmigos{
-  margin-right: 40px;
+.header {
+  display: flex;
+  align-items: center; /* Alinea verticalmente */
+  justify-content: space-between; /* Distribuye espacio entre los elementos */
+  gap: 10px; /* Espacio entre el título y el checkbox */
+}
+
+/* Navbar */
+.navbar {
+  background-color: #800031 !important;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .Btn {
-  display: flex;
-  align-items: center; /* Centrado perfecto */
-  justify-content: flex-start;
-  min-width: 45px; /* 🔥 Le ponemos min-width para que no se achique */
-  height: 45px;
+  background: none;
   border: none;
-  border-radius: 50%;
   cursor: pointer;
-  position: relative;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.Btn .text {
+  margin-left: 10px;
+  font-size: 1rem;
+}
+
+/* Sidebar de chats */
+.sidebar {
+  width: 300px;
+  background: #f4f4f4;
+  padding: 10px;
+  position: fixed;
+  left: 0;
+  top: 80px;
+  bottom: 0;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat-slider {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #008069;
+  margin-bottom: 15px;
+}
+
+.friendsConteiner {
+  list-style: none;
+  background: #f8f9fa;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.friendsConteiner:hover {
+  background: #e2e6ea;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Estilos del chat */
+.chat {
+  flex-grow: 1;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* From Uiverse.io by 3bdel3ziz-T */ 
+.burger {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: pointer;
+  transition: 300ms;
+  border-radius: 10px;
+}
+
+.burger-icon {
+  display: flex;
+  align-items: center;
+}
+
+.burger input[type="checkbox"] {
+  appearance: none;
+  transition: 300ms;
+}
+
+.burger::before,
+.burger::after {
+  content: "";
+  transition: 300ms;
+  transform-origin: center center;
+}
+
+.burger::before {
+  transform: translateY(8px);
+}
+.burger::after {
+  transform: translateY(-8px);
+}
+.burger .line,
+.burger::before,
+.burger::after {
+  width: 25px;
+  height: 2.1px;
+  display: block;
+  background-color: black;
+  border-radius: 5px;
+  position: absolute;
+}
+
+.burger .line:checked {
+  width: 0;
+  transition-delay: 100ms;
+}
+.burger:has(.line:checked)::before {
+  animation: animation1 400ms ease-out 0s 1 both;
+}
+.burger:has(.line:checked)::after {
+  animation: animation2 400ms ease-out 0s 1 both;
+}
+
+.burger:hover {
+  background: #aeaeae;
+  border-radius: 50%;
+}
+
+.burger:hover .line,
+.burger:hover::before,
+.burger:hover::after {
+  background: #e8e8e8;
+}
+
+.burger:active {
+  scale: 0.95;
+}
+@keyframes animation1 {
+  0% {
+    transform: translateY(8px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(45deg);
+  }
+}
+@keyframes animation2 {
+  0% {
+    transform: translateY(-8px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(-45deg);
+  }
+}
+
+
+.requestFriends {
+  position: absolute;
+  top: 70px;
+  left: 320px;
+  width: 320px;
+  background: white;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Header del panel */
+.drag-header {
+  background: #008069;
+  color: white;
+  padding: 12px;
+  border-radius: 12px 12px 0 0;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Botón de cerrar */
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ffdddd;
+}
+
+/* Lista de solicitudes */
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Cada solicitud */
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.3s;
+}
+
+/* Efecto hover */
+li:hover {
+  background: #f1f1f1;
+}
+
+/* Estilo del nombre del usuario */
+.request-name {
+  font-size: 11px;
+  font-weight: bold;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+/* Grupo de botones */
+.button-group {
+  display: flex;
+  gap: 6px;
+}
+
+/* Botón Aceptar */
+.accept-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.accept-btn:hover {
+  background: #218838;
+}
+
+/* Botón Rechazar */
+.reject-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.reject-btn:hover {
+  background: #c82333;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
   overflow: hidden;
-  transition-duration: 0.3s;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-  background-color: white;
-}
-  
-  /* plus sign */
-  .sign {
-    width: 45px; /* 🔥 Le damos el mismo tamaño del botón */
-    height: 45px; /* Esto hace que siempre quede cuadrado */
-    transition-duration: 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .friends-list {
-    position: fixed; /* Fija el div en la pantalla */
-    top: 60px;
-    left: 0;
-    width: 15%; /* Ajusta el ancho según necesites */
-    height: 100vh; /* Que ocupe toda la altura */
-    background: #f8f9fa;
-    border-right: 1px solid #ccc;
-    padding: 10px;
-    overflow-y: auto;
 }
 
-  
-  .sign svg {
-    width: 17px;
+.chat {
+  position: absolute;
+  top: 80px;
+  left: 320px;
+  right: 10px;
+  bottom: 10px;
+  background: white;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow:  1px 1px 20px 5px rgba(0, 0, 0, 0.4);
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+}
 
-  }
-  
-  .sign svg path {
-    fill: black;
-  }
-  /* text */
-  .text {
-    position: absolute;
-    right: 0%;
-    width: 0%;
-    opacity: 0;
-    color: white;
-    font-size: 1.2em;
-    font-weight: 600;
-    transition-duration: 0.3s;
-  }
-  /* hover effect on button width */
-  .Btn:hover {
-    background-color: black;
-    width: 200px;
-    border-radius: 40px;
-    transition-duration: 0.5s;
-  }
-  
-  .Btn:hover .sign {
-    width: 30%;
-    transition-duration: 0.3s;
-    padding-left: 20px;
+/* Input y botón de enviar */
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+}
 
-  }
-  
-  .Btn:hover .sign svg path {
-    fill: white;
-  }
-  
-  /* hover effect button's text */
-  .Btn:hover .text {
-    opacity: 1;
-    width: 70%;
-    transition-duration: 0.3s;
-    padding-right: 10px;
-  }
-  /* button click effect*/
-  .Btn:active {
-    transform: translate(2px, 2px);
-  }
+.chat-input input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
-  .sign svg {
-    width: 20px; /* Tamaño fijo */
-    height: 20px; 
-    transition-duration: 0.3s; /* Animación suave */
-  }
-  
-  .Btn:hover .sign svg {
-    width: 20px; /* Que no se agrande con el hover */
-  }
+.chat-input button {
+  margin-left: 10px;
+  padding: 8px 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-
+/* Responsive */
+@media screen and (max-width: 1024px) {
   .sidebar {
-    position: fixed;
+    width: 250px;
+  }
+  .requestFriends, .chat {
+    left: 270px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .requestFriends {
     left: 0;
-    top: 60px;
-    width: 15%;
-    height: 100vh;
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-right: 2px solid #ddd;
-    overflow-y: auto;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(-100%);
+    width: 100%;
+    position: relative;
   }
-
-  .sidebar.show {
-    transform: translateX(0);
+  .chat {
+    left: 0;
+    width: 100%;
+    top: auto;
+    bottom: 0;
   }
-
-  
+}

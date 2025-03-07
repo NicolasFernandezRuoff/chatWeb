@@ -7,7 +7,9 @@ export const environment = {
     apiKey: "AIzaSyDPmpyKVTrQx9z4ZETeG-NjDZbtQ4Zqkgs", 
     authDomain: "login-2f435.firebaseapp.com", 
     messagingSenderId: "869898521111",
-    emulator: true
+    emulator: true,
+    firestoreHost: "192.168.0.10", // 👈 Reemplaza con tu IP local
+    firestorePort: 8080
   }
 };
 

@@ -3,6 +3,7 @@ import { UserService } from '../service/user.service';  // <-- Verifica que la r
 import { Router } from '@angular/router';
 import { FriendsService } from '../service/friends.service';
 import { Auth, user } from '@angular/fire/auth';
+import { ChatServiceService } from '../service/chat-service.service';
 
 @Component({
   selector: 'app-main',
@@ -15,11 +16,14 @@ export class MainComponent {
   friends: string[] = [];
   friendRequests: { id: string, from: string, fromName: string }[] = [];
   searchEmail: string = '';
-  friendsPanelVisible = false;
   friendsrequest = false;
 
-  constructor(private userService: UserService, private router: Router, private friendsService: FriendsService, private auth: Auth) {}
-
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private friendsService: FriendsService,
+    private auth: Auth
+  ) {}
 
   ngOnInit() {
     user(this.auth).subscribe(user => {
@@ -31,7 +35,7 @@ export class MainComponent {
     });
   }
 
-  
+
   async sendFriendRequest() {
     if (this.searchEmail.trim() !== '') {
       console.log('Buscando usuario con email:', this.searchEmail.trim().toLowerCase());
@@ -56,7 +60,6 @@ export class MainComponent {
       }
     }
   }
-  
   async loadFriends() {
     this.friends = await this.friendsService.getUserFriends(this.userId);
   }
@@ -81,7 +84,6 @@ export class MainComponent {
     this.loadFriends();
   }
 
-
   logout() {
     console.log('Deslogeando...');
     this.userService.logOut() // <--- Aquí ya debería reconocer `logOut()`
@@ -94,13 +96,16 @@ export class MainComponent {
       });
   }
 
-  toggleFriendsPanelFriends() {
-    this.friendsPanelVisible = !this.friendsPanelVisible;
-  }
-  toggleFriendsPanelRequest(){
+  
+  toggleFriendsPanelRequest() {
     this.friendsrequest = !this.friendsrequest;
   }
 
-    
+  closeRequestPanel() {
+    this.friendsrequest = false;
+  }
 
+  seleccionarAmigo(friendUid: string) {
+    this.friendsService.seleccionarAmigo(friendUid);
+  }
 }
